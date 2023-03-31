@@ -2,6 +2,9 @@ import React, {useState} from 'react';
 import './App.css';
 import {NewComponent} from "./components/NewComponent";
 import {TableComponent} from "./components/TableComponent";
+import {ButtonComponent} from "./components/ButtonComponent";
+import {log} from "util";
+import {UseStateComponent} from "./components/UseStateComponent";
 
 function App() {
     const [students, setStudents] = useState([
@@ -23,12 +26,22 @@ function App() {
         {manufacturer: 'Audi', model: 'rs6'}
     ]
 
+    const onButtonClick1 = (name: string, age: number) => console.log(`Im ${name}, my age ${age}`);
+    const onButtonClick2 = (name: string) => console.log(`Im ${name}`);
+    const onButtonClick3 = () => console.log('Im stupid button')
+
     return (
         <>
-            <NewComponent students={students} />
-            <TableComponent cars={topCars} />
+            {/*<NewComponent students={students} />
+            <TableComponent cars={topCars} />*/}
+            <ButtonComponent callback={() => onButtonClick1('Maxim', 20)} name={'Button subscribe 1'} />
+            <ButtonComponent callback={() => onButtonClick2('Ivan')} name={'Button subscribe 2'} />
+            <ButtonComponent callback={onButtonClick3} name={'Stupid Button'} />
+            <hr />
+            <UseStateComponent />
         </>
     );
 }
+
 
 export default App;
