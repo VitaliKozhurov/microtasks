@@ -5,6 +5,7 @@ import {TableComponent} from "./components/TableComponent";
 import {ButtonComponent} from "./components/ButtonComponent";
 import {log} from "util";
 import {UseStateComponent} from "./components/UseStateComponent";
+import {FilterComponent} from "./components/FilterComponent";
 
 function App() {
     const [students, setStudents] = useState([
@@ -25,10 +26,19 @@ function App() {
         {manufacturer: 'Mercedes', model: 'e63s'},
         {manufacturer: 'Audi', model: 'rs6'}
     ]
-
+    const money = [
+        {banknote: "dollar", nominal: 100, number: "a123456789"},
+        {banknote: "dollar", nominal: 50, number: "b123456789"},
+        {banknote: "ruble", nominal: 100, number: "c123456789"},
+        {banknote: "dollar", nominal: 100, number: "d123456789"},
+        {banknote: "dollar", nominal: 50, number: "e123456789"},
+        {banknote: "ruble", nominal: 100, number: "f123456789"},
+        {banknote: "dollar", nominal: 50, number: "j123456789"},
+        {banknote: "ruble", nominal: 50, number: "h123456789"}
+    ];
     const onButtonClick1 = (name: string, age: number) => console.log(`Im ${name}, my age ${age}`);
     const onButtonClick2 = (name: string) => console.log(`Im ${name}`);
-    const onButtonClick3 = () => console.log('Im stupid button')
+    const onButtonClick3 = () => console.log('Im stupid button');
 
     return (
         <>
@@ -39,6 +49,7 @@ function App() {
             <ButtonComponent callback={onButtonClick3} name={'Stupid Button'} />
             <hr />
             <UseStateComponent />
+            <FilterComponent money={money} />
         </>
     );
 }
