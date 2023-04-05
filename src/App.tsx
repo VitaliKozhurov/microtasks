@@ -6,6 +6,13 @@ import {ButtonComponent} from "./components/ButtonComponent";
 import {log} from "util";
 import {UseStateComponent} from "./components/UseStateComponent";
 import {FilterComponent} from "./components/FilterComponent";
+import { InputComponent } from './components/InputComponent';
+import { InputCmpt } from './components/InputComponentWithoutBtn';
+import { BtnComponent } from './components/BtnForInput';
+
+export type MessageType = {
+    message:string
+}
 
 function App() {
     const [students, setStudents] = useState([
@@ -40,17 +47,43 @@ function App() {
     const onButtonClick2 = (name: string) => console.log(`Im ${name}`);
     const onButtonClick3 = () => console.log('Im stupid button');
 
+    // State for diffrent component with one parent
+    const [messages, setMessages] = useState<Array<MessageType>>([{message:'Its my first message'}]);
+    const [inputState, setInputState] = useState<string>('');
+
+    const addMessage = (inputState:string) =>{
+        setMessages([{message:inputState},...messages])
+    }
+
+    const btnCallback =()=>{
+        addMessage(inputState)
+    }
+ 
     return (
         <>
             {/*<NewComponent students={students} />
             <TableComponent cars={topCars} />*/}
-            <ButtonComponent callback={() => onButtonClick1('Maxim', 20)} name={'Button subscribe 1'} />
+            {/* <ButtonComponent callback={() => onButtonClick1('Maxim', 20)} name={'Button subscribe 1'} />
             <ButtonComponent callback={() => onButtonClick2('Ivan')} name={'Button subscribe 2'} />
             <ButtonComponent callback={onButtonClick3} name={'Stupid Button'} />
             <hr />
             <UseStateComponent />
-            <FilterComponent money={money} />
+            <FilterComponent money={money} /> */}
+            
+            {/* <InputComponent addMessage = {addMessage}/> */}
+
+            <InputCmpt setInputState={setInputState} value={inputState}/>
+            <BtnComponent addMessage={btnCallback} name={'Add message'} value={inputState}/>
+
+            {messages.map((elem, ind)=>(
+                <div key={ind}>
+                    {elem.message}
+                </div>
+            ))}
+
         </>
+
+        
     );
 }
 
